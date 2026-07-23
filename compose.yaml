@@ -1,0 +1,18 @@
+services:
+  bot:
+    build:
+      context: .
+      target: dev
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DB_PATH: /data/leads.db
+    volumes:
+      - ./:/app
+      - /app/.venv
+      - leads-data:/data
+    restart: unless-stopped
+
+volumes:
+  leads-data:

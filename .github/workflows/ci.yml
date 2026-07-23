@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build dev image
+        run: docker compose build
+      - name: Lint
+        run: docker compose run --rm bot uv run ruff check .
+      - name: Format check
+        run: docker compose run --rm bot uv run ruff format --check .
+      - name: Tests
+        run: docker compose run --rm bot uv run pytest
+      - name: Build prod image
+        run: docker build --target prod .

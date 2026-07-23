@@ -1,0 +1,25 @@
+[project]
+name = "client-fixation-bot"
+version = "0.1.0"
+description = "Telegram bot that registers a realtor's client (mini partner bot)"
+requires-python = ">=3.14"
+dependencies = [
+    "aiogram>=3.30,<4",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8",
+    "ruff>=0.12",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
