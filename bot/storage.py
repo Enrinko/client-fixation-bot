@@ -40,5 +40,11 @@ class LeadStorage:
         self._conn.commit()
         return cursor.lastrowid
 
+    def has_client(self, client_phone: str) -> bool:
+        row = self._conn.execute(
+            "SELECT 1 FROM leads WHERE client_phone = ?", (client_phone,)
+        ).fetchone()
+        return row is not None
+
     def close(self) -> None:
         self._conn.close()

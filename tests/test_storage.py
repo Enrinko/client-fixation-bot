@@ -30,6 +30,13 @@ def test_different_clients_are_both_stored(db_path: Path) -> None:
     assert first != second
 
 
+def test_has_client_reflects_stored_leads(db_path: Path) -> None:
+    storage = LeadStorage(db_path)
+    assert not storage.has_client("+79161234567")
+    storage.add_lead("+79161234567", "+79997654321", "Иванов Иван")
+    assert storage.has_client("+79161234567")
+
+
 def test_leads_survive_storage_reopen(db_path: Path) -> None:
     LeadStorage(db_path).add_lead("+79161234567", "+79997654321", "Иванов Иван")
     reopened = LeadStorage(db_path)
